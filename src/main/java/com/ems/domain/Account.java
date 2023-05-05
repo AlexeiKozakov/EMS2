@@ -5,26 +5,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
 
-public class User {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int Id;
 
-    private int id;
-    @Column(unique = true,nullable = false)
-
+    @Column(unique = true)
+    private String name;
+    @Column(unique = true,length = 13)
     private String phoneNumber;
-    @OneToMany
-    private Set<Role> roles = new TreeSet<>();
-    @Column(unique = true,length = 25)
+    @Column(length = 25)
     private String password;
-
+    @OneToMany
+    private List<User> users = new ArrayList<>();
 
 }
