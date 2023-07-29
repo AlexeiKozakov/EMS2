@@ -41,6 +41,7 @@ public class Mapper {
                 .eventType(dto.getEventType())
                 .price(dto.getPrice())
                 .date(LocalDate.parse(dto.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .participantLimit(dto.getParticipantLimit())
                 .build();
 
     }
@@ -69,6 +70,7 @@ public class Mapper {
                 .price(entity.getPrice())
                 .date(entity.getDate().toString())
                 .id(entity.getId())
+                .participantLimit(entity.getParticipantLimit())
                 .participants(
                         entity.getParticipants()
                         .stream()
@@ -78,14 +80,11 @@ public class Mapper {
     }
 
     public List<EventDto> convertToListEventResponseDto(List<Event> events) {
-        return events.stream().map((e) ->
-                        convertToEventResponseDto(e)
-                )
-                .collect(Collectors.toList());
+        return events.stream().map((e) -> convertToEventResponseDto(e)).collect(Collectors.toList());
     }
 
     public Event convertfromEventUpdateDtoToEntity(EventUpdateDto dto) {
-        List<Participant> participants = dto.getParticipant();
+        List<Participant> participants = dto.getParticipants();
         return Event.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -93,6 +92,7 @@ public class Mapper {
                 .price(dto.getPrice())
                 .date(LocalDate.parse(dto.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .participants(participants)
+                .participantLimit(dto.getParticipantLimit())
                 .build();
     }
     public ParticipantDto convertToParticipantResponseDto(Participant entity) {

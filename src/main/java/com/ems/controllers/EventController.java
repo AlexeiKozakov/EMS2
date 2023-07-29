@@ -20,52 +20,34 @@ import java.util.List;
 @AllArgsConstructor
 
 
-
 public class EventController {
     private final EventService eventService;
 
 
-
     @GetMapping("/events")
     public ModelAndView getEvents() {
-
         List<EventDto> events = eventService.getAllEvents();
-
-
         ModelAndView model = new ModelAndView("events");
         model.addObject("events", events);
         return model;
-
-
-        //  events.add(new Event(1,"birthday","official",1000, LocalDate.now(),10));
-
-        //  events.add(new Event(2,"wedding","official",5000,LocalDate.now(),15));
-        //   model.addObject("events", events);
-
     }
 
     @GetMapping("/events/add")
     public String addEvents(Model model) {
-
-        model.addAttribute("event", new EventAddDto("test", "some", 223, "2023-07-25"));
+        model.addAttribute("event", new EventAddDto("test", "some", 223, "2023-07-25", 50));
         return "addEvent";
-
-
     }
 
     @PostMapping("/events/add")
     public String addEvents(@ModelAttribute("event") EventAddDto eventAddDto) {
         eventService.addEvent(eventAddDto);
-
         return "redirect:/events";
     }
 
     @GetMapping("/events/{id}")
     public ModelAndView deleteEvent(@PathVariable("id") Integer id) {
-
         eventService.deleteEventById(id);
-        ModelAndView model = new ModelAndView("redirect:/events");
-        return model;
+        return new ModelAndView("redirect:/events");
     }
 
 
@@ -78,11 +60,7 @@ public class EventController {
 
     @GetMapping("/")
     public ModelAndView openHomePage() {
-
-
-        ModelAndView model = new ModelAndView("homepage");
-
-        return model;
+        return new ModelAndView("homepage");
     }
 
 
@@ -91,8 +69,6 @@ public class EventController {
         ModelAndView model = new ModelAndView("updateEvent");
         model.addObject("event", eventService.getEventById(id));
         return model;
-
-
     }
 
     @PostMapping("/events/update")
@@ -100,6 +76,23 @@ public class EventController {
         eventService.updateEvent(eventUpdateDto);
 
         return "redirect:/events";
+    }
+
+    @GetMapping("/events/{id}/participant/add")
+    public ModelAndView addParticipant(@PathVariable(name = "id") Integer id) {
+        ModelAndView modelAndView = new ModelAndView("addParticipant");
+        ParticipantAddDto dto = new ParticipantAddDto();
+        System.out.println(id);
+        dto.setEventId(id);
+        modelAndView.addObject("participant", dto);
+        return modelAndView;
+    }
+
+    @PostMapping("/events/participant/add")
+    public String addParticipant(@ModelAttribute("participant") ParticipantAddDto participantAddDto) {
+        eventService.addParticipant(participantAddDto);
+
+        return "redirect:/events/view/" + participantAddDto.getEventId();
     }
 
 

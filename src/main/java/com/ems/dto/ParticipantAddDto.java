@@ -11,11 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class ParticipantAddDto {
-
-
     private String name;
-
     private String phone;
-
     private String mail;
+    private int eventId;
 }

@@ -27,6 +27,8 @@ public class Event {
  private int price;
  @Column(nullable = false)
  private LocalDate date;
+ @Column(nullable = false)
+ private int participantLimit;
  @OneToMany
  private List<Participant> participants = new ArrayList<>();
 

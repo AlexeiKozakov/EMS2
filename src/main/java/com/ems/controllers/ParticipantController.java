@@ -16,17 +16,5 @@ public class ParticipantController {
 
     private final ParticipantService participantService;
 
-    @GetMapping("/participants/add")
-    public ModelAndView addParticipant() {
-        ModelAndView modelAndView = new ModelAndView("addParticipant");
-        modelAndView.addObject("participant", new Participant());
-        return modelAndView;
-    }
 
-    @PostMapping("/participants/add")
-    public String addParticipant(@ModelAttribute("participant") ParticipantAddDto participantAddDto) {
-        participantService.addParticipant(participantAddDto);
-
-        return "redirect:/participant";
-    }
 }
