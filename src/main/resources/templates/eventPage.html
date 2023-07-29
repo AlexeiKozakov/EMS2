@@ -1,0 +1,85 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Page</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/events}">Events</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+
+
+
+
+  <div class="card text-center" th:object="${event}">
+    <div class="card-header">
+      <div class="row" >
+        <div class="col-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text" >Title</span>
+            <input type="text" class="form-control" th:field="*{name}" >
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text" >Type</span>
+            <input type="text" class="form-control" th:field="*{eventType}" >
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text" >Price</span>
+            <input type="text" class="form-control" th:field="*{price}" >
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text" >Date</span>
+            <input type="text" class="form-control" th:field="*{date}" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    <div class="card-footer text-body-secondary">
+      <div class="col-2"><a th:href="@{/participants/add}" class="btn btn-warning">ADD</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

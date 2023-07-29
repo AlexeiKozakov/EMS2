@@ -1,6 +1,7 @@
 package com.ems.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-public class Role {
+@Builder
+public class UserRole {
 
 
     @Id

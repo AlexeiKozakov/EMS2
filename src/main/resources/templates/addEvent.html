@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Add Event</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Add Event</h2>
+  <form th:action="@{/events/add}" th:object="${event}" method="post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" th:field="*{name}" >
+    </div>
+    <div class="form-group">
+      <label for="eventType">Event Type:</label>
+      <input type="text" class="form-control" id="eventType" th:field="*{eventType}">
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" class="form-control" id="price" th:field="*{price}">
+    </div>
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input type="date" class="form-control" id="date" th:field="*{date}">
+    </div>
+    <div class="form-group">
+      <label for="participant">Participant:</label>
+      <input type="text" class="form-control" id="participant" th:field="*{participant}">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Event</button>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

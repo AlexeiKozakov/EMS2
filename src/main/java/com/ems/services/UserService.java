@@ -1,6 +1,13 @@
 package com.ems.services;
 
+import com.ems.dto.UserSignUpDto;
+
 public interface UserService {
 
-    public boolean updatePassword(String password);
+
+    public UserSignUpDto saveNew(UserSignUpDto userSignUpDto);
+
+    public UserSignUpDto findUserByEmail(String email);
+
+
 }
