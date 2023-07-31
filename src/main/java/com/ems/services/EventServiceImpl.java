@@ -6,6 +6,7 @@ import com.ems.dto.EventAddDto;
 import com.ems.dto.EventDto;
 import com.ems.dto.EventUpdateDto;
 import com.ems.dto.ParticipantAddDto;
+import com.ems.exceptions.CreateException;
 import com.ems.repository.EventRepo;
 import com.ems.repository.ParticipantRepo;
 import com.ems.utils.Mapper;
@@ -24,13 +25,18 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDto> getAllEvents() {
-        return mapper.convertToListEventResponseDto(eventRepo.findAll());
+        List<Event> events = eventRepo.findAll();
+        return mapper.convertToListEventResponseDto(events);
     }
 
     @Override
     public void addEvent(EventAddDto eventAddDto) {
         Event event = mapper.convertToEntity(eventAddDto);
-        eventRepo.save(event);
+        try {
+            eventRepo.save(event);
+        } catch (Exception e) {
+            throw new CreateException(e);
+        }
     }
 
     @Override

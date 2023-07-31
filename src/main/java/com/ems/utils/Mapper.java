@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,7 @@ public class Mapper {
                 .price(dto.getPrice())
                 .date(LocalDate.parse(dto.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .participantLimit(dto.getParticipantLimit())
+                .participants(new ArrayList<>())
                 .build();
 
     }

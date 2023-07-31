@@ -5,11 +5,13 @@ import com.ems.dto.EventAddDto;
 import com.ems.dto.EventDto;
 import com.ems.dto.EventUpdateDto;
 import com.ems.dto.ParticipantAddDto;
+import com.ems.exceptions.CreateException;
 import com.ems.services.EventService;
 import com.ems.services.ParticipantService;
 import lombok.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,13 +37,26 @@ public class EventController {
     @GetMapping("/events/add")
     public String addEvents(Model model) {
         model.addAttribute("event", new EventAddDto("test", "some", 223, "2023-07-25", 50));
+        if (model.getAttribute("createErrorMessage") == null) {
+            model.addAttribute("createErrorMessage", "");
+        }
+
         return "addEvent";
     }
 
     @PostMapping("/events/add")
-    public String addEvents(@ModelAttribute("event") EventAddDto eventAddDto) {
-        eventService.addEvent(eventAddDto);
-        return "redirect:/events";
+    public ModelAndView addEvents(@ModelAttribute("event") EventAddDto eventAddDto) {
+
+        try {
+            eventService.addEvent(eventAddDto);
+        } catch (CreateException e) {
+
+            ModelAndView modelAndView = new ModelAndView("addEvent");
+            modelAndView.addObject("createErrorMessage", "Event with name "+eventAddDto.getName()+" already exists!!");
+            return modelAndView;
+
+        }
+        return getEvents();
     }
 
     @GetMapping("/events/{id}")

@@ -16,21 +16,21 @@ import java.util.*;
 @Builder
 
 public class Event {
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
- @Column(nullable = false)
- private String name;
- @Column(nullable = false)
- private String eventType;
- @Column(nullable = false)
- private int price;
- @Column(nullable = false)
- private LocalDate date;
- @Column(nullable = false)
- private int participantLimit;
- @OneToMany
- private List<Participant> participants = new ArrayList<>();
+    @Column(nullable = false, unique = true)
+    private String name;
+    @Column(nullable = false)
+    private String eventType;
+    @Column(nullable = false)
+    private int price;
+    @Column(nullable = false)
+    private LocalDate date;
+    @Column(nullable = false)
+    private int participantLimit;
+    @OneToMany
+    private List<Participant> participants = new ArrayList<>();
 
 
 }
