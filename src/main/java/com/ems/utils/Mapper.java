@@ -112,8 +112,19 @@ public class Mapper {
                 .name(dto.getName())
                 .phone(dto.getPhone())
                 .mail(dto.getMail())
+
                 .build();
 
+    }
+    public ParticipantAddDto convertToParticipantResponseAddDto(Participant entity) {
+
+
+        return ParticipantAddDto.builder()
+                .eventId(entity.getId())
+                .mail(entity.getMail())
+                .name(entity.getName())
+                .phone(entity.getPhone())
+                .build();
     }
 
 }

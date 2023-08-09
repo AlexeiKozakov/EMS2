@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class EventController {
     }
 
     @GetMapping("/events/{id}/participant/add")
-    public ModelAndView addParticipant(@PathVariable(name = "id") Integer id) {
+    public ModelAndView addParticipant( @PathVariable(name = "id") Integer id) {
         ModelAndView modelAndView = new ModelAndView("addParticipant");
         ParticipantAddDto dto = new ParticipantAddDto();
         System.out.println(id);
@@ -104,7 +105,11 @@ public class EventController {
     }
 
     @PostMapping("/events/participant/add")
-    public String addParticipant(@ModelAttribute("participant") ParticipantAddDto participantAddDto) {
+    public String addParticipant(@Valid @ModelAttribute("participant") ParticipantAddDto participantAddDto,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "eventPage";
+        }
+
         eventService.addParticipant(participantAddDto);
 
         return "redirect:/events/view/" + participantAddDto.getEventId();

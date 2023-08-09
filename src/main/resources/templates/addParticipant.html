@@ -6,9 +6,11 @@
 </head>
 <body>
 
+
 <div class="container">
   <h2>Add Participant</h2>
   <form th:action="@{/events/participant/add}" th:object="${participant}" method="post">
+
     <input type="text" class="form-control" id="eventId" th:field="*{eventId}" hidden="hidden" >
     <div class="form-group">
       <label for="name">Name:</label>
@@ -21,6 +23,11 @@
     <div class="form-group">
       <label for="mail">Mail:</label>
       <input type="text" class="form-control" id="mail" th:field="*{mail}">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="text" id="email" th:field="*{mail}" class="form-control" />
+      <span th:if="${#fields.hasErrors('email')}" th:errors="*{mail}" class="error-message"></span>
     </div>
 
 
