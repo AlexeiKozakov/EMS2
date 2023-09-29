@@ -15,19 +15,28 @@
     <div class="form-group">
       <label for="name">Name:</label>
       <input type="text" class="form-control" id="name" th:field="*{name}" >
+      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+
     </div>
-    <div class="form-group">
-      <label for="phone">Phone:</label>
-      <input type="text" class="form-control" id="phone" th:field="*{phone}">
-    </div>
-    <div class="form-group">
-      <label for="mail">Mail:</label>
-      <input type="text" class="form-control" id="mail" th:field="*{mail}">
-    </div>
+<!--    <div class="form-group">-->
+<!--      <label for="phone">Phone:</label>-->
+<!--      <input type="text" class="form-control" id="phone" th:field="*{phone}">-->
+<!--    </div>-->
+
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="text" id="email" th:field="*{mail}" class="form-control" />
-      <span th:if="${#fields.hasErrors('email')}" th:errors="*{mail}" class="error-message"></span>
+      <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" th:field="*{phone}" class="form-control" />
+      <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message error-green"></span>
+    </div>
+    <div class="form-group">
+      <label for="performingTime">performingTime:</label>
+      <input type="text" id="performingTime" th:field="*{performingTime}" class="form-control" />
+      <span th:if="${#fields.hasErrors('performingTime')}" th:errors="*{performingTime}" class="text-danger"></span>
     </div>
 
 

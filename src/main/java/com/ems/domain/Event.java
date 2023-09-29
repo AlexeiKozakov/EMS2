@@ -16,6 +16,8 @@ import java.util.*;
 @Builder
 
 public class Event {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -29,8 +31,12 @@ public class Event {
     private LocalDate date;
     @Column(nullable = false)
     private int participantLimit;
+
     @OneToMany
     private List<Participant> participants = new ArrayList<>();
+
+
+
 
 
 }

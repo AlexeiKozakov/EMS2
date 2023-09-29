@@ -103,6 +103,7 @@ public class Mapper {
                 .name(entity.getName())
                 .phone(entity.getPhone())
                 .mail(entity.getMail())
+                .performingTime(entity.getPerformingTime())
                 .build();
     }
     public Participant convertToEntity(ParticipantAddDto dto) {
@@ -112,6 +113,7 @@ public class Mapper {
                 .name(dto.getName())
                 .phone(dto.getPhone())
                 .mail(dto.getMail())
+                .performingTime(dto.getPerformingTime())
 
                 .build();
 
@@ -124,7 +126,24 @@ public class Mapper {
                 .mail(entity.getMail())
                 .name(entity.getName())
                 .phone(entity.getPhone())
+                .performingTime(entity.getPerformingTime())
                 .build();
     }
+    public EventFullResponseDto convertToEventFullResponseDto(Event entity) {
+        return EventFullResponseDto.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .eventType(entity.getEventType())
+                .price(entity.getPrice())
+                .date(entity.getDate().toString())
+
+                .participantLimit(entity.getParticipantLimit())
+
+                .build();
+    }
+    public List<EventFullResponseDto> convertToListEventFullResponseDto(List<Event> events) {
+        return events.stream().map((e) -> convertToEventFullResponseDto(e)).collect(Collectors.toList());
+    }
+
 
 }

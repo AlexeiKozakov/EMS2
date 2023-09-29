@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -28,5 +29,7 @@ public class Participant {
     private LocalDateTime created;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private LocalDateTime updated;
+     private double performingTime;
 
 }
+//добавить время доклада каждого гостя,расщитать время ивента исходя из выступлений гостей умноженых на 1.2,методом бляха муха мне крышка

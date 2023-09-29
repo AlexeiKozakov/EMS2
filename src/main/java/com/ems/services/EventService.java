@@ -1,9 +1,10 @@
 package com.ems.services;
 
-import com.ems.dto.EventAddDto;
-import com.ems.dto.EventDto;
-import com.ems.dto.EventUpdateDto;
-import com.ems.dto.ParticipantAddDto;
+import com.ems.domain.Event;
+import com.ems.dto.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -17,5 +18,10 @@ public interface EventService {
     public boolean updateEvent(EventUpdateDto event);
 
     public void addParticipant(ParticipantAddDto participantAddDto);
+
+    public Page<Event> findAllEvents(Pageable pageable);
+    List<EventFullResponseDto> getEvents();
+
+
 
 }

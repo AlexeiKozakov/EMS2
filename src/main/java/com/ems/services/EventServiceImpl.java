@@ -2,15 +2,14 @@ package com.ems.services;
 
 import com.ems.domain.Event;
 import com.ems.domain.Participant;
-import com.ems.dto.EventAddDto;
-import com.ems.dto.EventDto;
-import com.ems.dto.EventUpdateDto;
-import com.ems.dto.ParticipantAddDto;
+import com.ems.dto.*;
 import com.ems.exceptions.CreateException;
 import com.ems.repository.EventRepo;
 import com.ems.repository.ParticipantRepo;
 import com.ems.utils.Mapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -63,6 +62,7 @@ public class EventServiceImpl implements EventService {
         participant.setMail(participantAddDto.getMail());
         participant.setName(participantAddDto.getName());
         participant.setPhone(participantAddDto.getPhone());
+        participant.setPerformingTime(participantAddDto.getPerformingTime());
         participant.setCreated(LocalDateTime.now());
         participant.setUpdated(LocalDateTime.now());
 
@@ -71,5 +71,15 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepo.getReferenceById(participantAddDto.getEventId());
         event.getParticipants().add(participant);
         eventRepo.save(event);
+    }
+
+    @Override
+    public Page<Event> findAllEvents(Pageable pageable) {
+        return eventRepo.findAll(pageable);
+    }
+
+   public List<EventFullResponseDto> getEvents(){
+        List<Event> events = eventRepo.findAll();
+        return mapper.convertToListEventFullResponseDto(events);
     }
 }

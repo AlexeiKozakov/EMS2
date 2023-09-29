@@ -69,6 +69,7 @@
             <th>Price</th>
             <th>Date</th>
             <th>Participant Limit</th>
+            <th>Duration</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -81,6 +82,7 @@
             <td th:text="${event.price}"/>
             <td th:text="${event.date}"/>
             <td th:text="${event.participantLimit}"/>
+            <td th:text="${event.calculateEventTime()}"/>
             <td>
                 <a th:href="@{/events/view/{id}/(id=${event.id})}" class="btn btn-primary btn-sm">Open</a>
                 <a th:href="@{/events/update/{id}/(id=${event.id})}" class="btn btn-primary btn-sm">Edit</a>

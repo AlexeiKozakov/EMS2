@@ -1,5 +1,6 @@
 package com.ems.dto;
 
+import com.ems.domain.Participant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,5 +20,13 @@ public class EventDto {
     private String date;
     private int participantLimit;
     List<ParticipantDto> participants = new ArrayList<>();
+
+    public double calculateEventTime() {
+        double totalPerformingTime = participants.stream()
+                .mapToDouble(ParticipantDto::getPerformingTime)
+                .sum();
+
+        return totalPerformingTime * 1.2;
+    }
 
 }

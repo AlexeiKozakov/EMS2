@@ -1,5 +1,6 @@
 package com.ems.controllers;
 
+import com.ems.domain.Event;
 import com.ems.domain.Participant;
 import com.ems.dto.EventAddDto;
 import com.ems.dto.EventDto;
@@ -9,6 +10,8 @@ import com.ems.exceptions.CreateException;
 import com.ems.services.EventService;
 import com.ems.services.ParticipantService;
 import lombok.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +28,7 @@ import java.util.List;
 
 public class EventController {
     private final EventService eventService;
+
 
 
     @GetMapping("/events")
@@ -95,25 +99,31 @@ public class EventController {
     }
 
     @GetMapping("/events/{id}/participant/add")
-    public ModelAndView addParticipant( @PathVariable(name = "id") Integer id) {
-        ModelAndView modelAndView = new ModelAndView("addParticipant");
+    public String addParticipant( @PathVariable(name = "id") Integer id, Model model) {
+
         ParticipantAddDto dto = new ParticipantAddDto();
-        System.out.println(id);
+
         dto.setEventId(id);
-        modelAndView.addObject("participant", dto);
-        return modelAndView;
+        model.addAttribute("participant", dto);
+        return "/addParticipant";
     }
 
     @PostMapping("/events/participant/add")
-    public String addParticipant(@Valid @ModelAttribute("participant") ParticipantAddDto participantAddDto,BindingResult bindingResult) {
+    public String addParticipant(@Valid @ModelAttribute("participant") ParticipantAddDto participantAddDto,BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "eventPage";
+            return "/addParticipant";
         }
 
         eventService.addParticipant(participantAddDto);
 
         return "redirect:/events/view/" + participantAddDto.getEventId();
     }
-
+ @GetMapping
+    public String getEvent(@RequestParam(defaultValue = "0") int page,Model model){
+     Page<Event> eventPage = eventService.findAllEvents(PageRequest.of(page,5));
+     model.addAttribute("event",eventPage.getContent());
+     model.addAttribute("currentPage",page);
+     return "events";
+ }
 
 }

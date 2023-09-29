@@ -24,4 +24,5 @@ public class ParticipantDto {
     private String phone;
     @Email
     private String mail;
+    private double performingTime;
 }
